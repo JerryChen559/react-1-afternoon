@@ -24,7 +24,7 @@ class EvenAndOdd extends Component {
     let odds = [];
     this.state.userInput
       .split(",")
-      .map(num => (num % 2 ? odds.push(num) : evens.push(num)));
+      .map(num => (num % 2 ? odds.push(+num) : evens.push(+num)));
     //need to make the results have commas between them
 
     this.setState({
