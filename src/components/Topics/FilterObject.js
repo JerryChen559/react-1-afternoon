@@ -20,25 +20,28 @@ class FilterObject extends Component {
       filteredArray: []
     };
 
-    this.onChange = this.onChange.bind(this);
+    this.inputOnChange = this.inputOnChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
-  onChange(e) {
+  inputOnChange(e) {
     this.setState({
       userInput: e.target.value
     });
   }
 
-  onClick(prop) {
-    let filteredstuff = [];
-    this.state.userInput.filter(
-      obj => (obj.hasOwnProperty(prop) ? filteredstuff.push(obj) : null)
-    );
+  onClick(val) {
+    let Fil = [];
+    let unFilteredArray = this.state.unFilteredArray;
+
+    for (let i = 0; i < unFilteredArray.length; i++) {
+      if (unFilteredArray[i].hasOwnProperty(val)) {
+        Fil.push(unFilteredArray[i]);
+      }
+    }
 
     this.setState({
-      filteredArray: filteredstuff,
-      userInput: ""
+      filteredArray: Fil
     });
   }
 
@@ -48,14 +51,21 @@ class FilterObject extends Component {
       <div className="puzzleBox filterObjectPB">
         <h4>Filter Object</h4>
         <span className="puzzleText">
-          {/* Original: {this.state.unFilteredArray} this code is breaking app */}
+          Original: {JSON.stringify(this.state.unFilteredArray)}
         </span>
-        <input className="inputLine" type="text" onChange={this.onChange} />
-        <button className="confirmationButton" onClick={this.onClick}>
+        <input
+          className="inputLine"
+          type="text"
+          onChange={this.inputOnChange}
+        />
+        <button
+          className="confirmationButton"
+          onClick={() => this.onClick(this.state.userInput)}
+        >
           Filter
         </button>
         <span className="resultsBox filterObjectRB">
-          Filtered: {this.state.filteredArray}
+          Filtered: {JSON.stringify(this.state.filteredArray)}
         </span>
       </div>
     );
