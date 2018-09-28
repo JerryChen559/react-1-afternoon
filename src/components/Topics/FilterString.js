@@ -26,17 +26,17 @@ class FilterString extends Component {
     this.setState({ userInput: e.target.value });
   }
 
-  // JS logic is not there
-  filterOnClick() {
+  filterOnClick = val => {
+    let unFilteredArray = this.state.unFilteredArray;
     let Fil = [];
 
-    for (let i; i < this.state.unFilteredArray.length; i++) {
-      if (this.state.unFilteredArray[i].includes(this.state.userInput)) {
-        Fil.push(this.state.unFilteredArray[i]);
+    for (let i = 0; i < unFilteredArray.length; i++) {
+      if (unFilteredArray[i].includes(val)) {
+        Fil.push(unFilteredArray[i]);
       }
     }
     this.setState({ filteredArray: Fil });
-  }
+  };
 
   render() {
     console.log(this.state);
@@ -44,19 +44,21 @@ class FilterString extends Component {
       <div className="puzzleBox filterStringPB">
         <h4>Filter String</h4>
         <span className="puzzleText">
-          Names: ["James", "Jessica", "Melody", "Tyler", "Blake", "Jennifer",
-          "Mark", "Maddy"]
+          Names: {JSON.stringify(this.state.unFilteredArray)}
         </span>
         <input
           type="text"
           className="inputLine"
           onChange={this.inputOnChange}
         />
-        <button className="confirmationButton" onClick={this.filterOnClick}>
+        <button
+          className="confirmationButton"
+          onClick={() => this.filterOnClick(this.state.userInput)}
+        >
           Filter
         </button>
         <span className="resultsBox filterStringRB">
-          Filtered Names: {this.state.filteredArray}
+          Filtered Names: {JSON.stringify(this.state.filteredArray)}
         </span>
       </div>
     );

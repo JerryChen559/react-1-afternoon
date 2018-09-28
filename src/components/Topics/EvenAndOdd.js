@@ -25,6 +25,7 @@ class EvenAndOdd extends Component {
     this.state.userInput
       .split(",")
       .map(num => (num % 2 ? odds.push(num) : evens.push(num)));
+    //need to make the results have commas between them
 
     this.setState({
       evenArray: evens,
@@ -42,8 +43,12 @@ class EvenAndOdd extends Component {
         <button className="confirmationButton" onClick={this.onClick}>
           Split
         </button>
-        <span className="resultsBox">Evens: {this.state.evenArray}</span>
-        <span className="resultsBox">Odds: {this.state.oddArray}</span>
+        <span className="resultsBox">
+          Evens: {JSON.stringify(this.state.evenArray)}
+        </span>
+        <span className="resultsBox">
+          Odds: {JSON.stringify(this.state.oddArray)}
+        </span>
       </div>
     );
   }
